@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ButtonTemplate</title>
+</head>
+
+<body>
+    <div class="sheet">
+
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+            <img class="button" src="buttons/trans_women_are_better_than_you.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+            <img class="button" src="buttons/BIG.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+            <img class="button" src="buttons/small.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+            <img class="button" src="buttons/BIGCOMPLICATED.svg"/>
+        </div>
+        <div class="pin">
+            <img class="button" src="buttons/t4t-snuff-bait.svg"/>
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+        </div>
+        <div class="pin">
+            <img class="template" src="buttons/0_single_template-44mm.svg"/>
+            <div class="button"></div>
+        </div>
+
+    </div>
+    
+
+
+
+
+<!--
+    <script>
+        const sheet = document.querySelector(".sheet");
+        for (let i = 0; i < 15; i++) {
+            const item = document.createElement("div");
+            item.className = "pin";
+            item.innerHTML = '<img src="buttons/0_single_template-44mm.svg" alt="">';
+            sheet.appendChild(item);
+        }
+    </script>
+-->
+<button onclick="window.print();" class="noPrint">Print</button>
+
+</body>
+</html>
+
+
+
+<style>
+@page {
+    size: A4;
+    margin: 0;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0; 
+}
+@media print {
+  .noPrint{
+    display:none;
+  }
+}
+
+.circular_image {
+    background-color: red;
+    clip-path: circle();
+}
+
+
+
+.button{
+    width: 54mm;
+    height: 54mm;
+    position: absolute;
+    clip-path: circle();
+}
+.sheet {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    width: 210mm;
+    height: 297mm;
+}
+
+
+.template {
+    display: none;
+    width: 54mm;
+    height: 54mm;
+    z-index: 5;
+}
+.pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
+
+
+<!--
+TODOS:
+See if you can print the html from a seperate file
+Make it so that a seperate html / js can generate this with proper image srcs
+Make it so that it can read from a folder automatically (see if neocities doesnt hate that -w-)
+Display it on the generator site (cool and awesome)
+Mel will make fun Css
+
+Maybe: 
+Either button or make template background for preview (awesome)
+Make red circle so I have a cutting guide yay
+
+
+ALSO pin THIS IM NOT 100% SURE IF IT WORKS
+
+
+-->

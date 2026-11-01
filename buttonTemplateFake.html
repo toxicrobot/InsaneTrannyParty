@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ButtonTemplate</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .sheet {
+      position: relative;
+      width: min(100vw, 210mm);
+      aspect-ratio: 210 / 297;
+      margin: 0 auto;
+      background: url('template-44mm.svg') top left / 100% 100% no-repeat;
+      overflow: hidden;
+    }
+
+    .button-image {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--size, 25.7%);
+      aspect-ratio: 1;
+      object-fit: contain;
+      clip-path: circle();
+      transform: translate(-50%, -50%);
+    }
+
+    .no-print {
+      display: block;
+      margin: 1rem auto;
+    }
+
+    @media print {
+      html,
+      body {
+        width: 210mm;
+        height: 297mm;
+      }
+
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <img src="buttons/trans_women_are_better_than_you.svg" alt="" class="button-image" style="--x: 15.619%; --y: 11.044%;">
+    <img src="buttons/small.svg" alt="" class="button-image" style="--x: 50%; --y: 11.044%;">
+    <img src="buttons/BIG.svg" alt="" class="button-image" style="--x: 84.381%; --y: 11.044%;">
+    <img src="buttons/BIGCOMPLICATED.svg" alt="" class="button-image" style="--x: 15.619%; --y: 30.522%;">
+  </main>
+  <button type="button" onclick="window.print()" class="no-print">Print</button>
+</body>
+</html>
