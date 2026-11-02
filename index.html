@@ -3,81 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>ButtonTemplate</title>
+    <script src="buttonScript.js" defer></script>
 </head>
 
 <body>
     <div class="sheet">
 
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-            <img class="button" src="buttons/trans_women_are_better_than_you.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-            <img class="button" src="buttons/BIG.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-            <img class="button" src="buttons/small.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-            <img class="button" src="buttons/BIGCOMPLICATED.svg"/>
-        </div>
-        <div class="pin">
-            <img class="button" src="buttons/t4t-snuff-bait.svg"/>
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-        </div>
-        <div class="pin">
-            <img class="template" src="buttons/0_single_template-44mm.svg"/>
-            <div class="button"></div>
-        </div>
-
     </div>
-    
 
-
-
-
-<!--
     <script>
         const sheet = document.querySelector(".sheet");
         for (let i = 0; i < 15; i++) {
             const item = document.createElement("div");
             item.className = "pin";
-            item.innerHTML = '<img src="buttons/0_single_template-44mm.svg" alt="">';
+            item.innerHTML = `
+                <img class="template" src="buttons/0_single_template-44mm.svg" alt="">
+                <img class="button" src="buttons/trans_women_are_better_than_you.svg" alt="">
+            `;
             sheet.appendChild(item);
         }
     </script>
--->
-<button onclick="window.print();" class="noPrint">Print</button>
+    <div class="noPrint">
+        <button onclick="window.print();">Print</button>
+    </div>
 
 </body>
 </html>
@@ -98,6 +46,18 @@ body {
   .noPrint{
     display:none;
   }
+  .sheet {
+    
+    width: 210mm;
+    height: 297mm;
+  }
+}
+
+@media screen {
+    .sheet {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .circular_image {
@@ -117,8 +77,6 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    width: 210mm;
-    height: 297mm;
 }
 
 
