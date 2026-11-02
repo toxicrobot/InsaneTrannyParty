@@ -11,7 +11,18 @@
     
     <div class="noPrint">
         <div id="image-menu"></div>
-        <button onclick="window.print();">Print</button>
+        <div class="preview-panel">
+            <div class="preview-controls">
+                <button id="preview-prev" type="button" label="Previous sheet">←</button>
+                <span id="preview-index">Sheet 1 / 1</span>
+                <button id="preview-next" type="button" label="Next sheet">→</button>
+                <button onclick="window.print();">Print</button>
+            </div>
+            <div class="preview-sheet" >
+                <div class="sheet"></div>
+            </div>
+        </div>
+
     </div>
     <div class= "sheets"> 
          <div class="sheet">
@@ -58,12 +69,67 @@ body {
     width: 210mm;
     height: 297mm;
   }
+  .sheets {
+        display: block;
+    }
 }
 
 @media screen {
-    .sheet {
-    width: 210mm;
-    height: 297mm;
+    .noPrint {
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    #image-menu {
+        flex: 1 1 120px;
+        min-width: 220px;
+    }
+
+    .preview-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        flex: 0 0 auto;
+        align-items: center;
+    }
+
+    .preview-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .preview-sheet {
+        width: min(40vw);
+        background: white;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+    }
+
+    .preview-sheet .sheet {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 210 / 297;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+
+    .preview-sheet .pin {
+        width: 100%;
+        height: 100%;
+    }
+
+    .preview-sheet .button,
+    .preview-sheet .template {
+        width: 20%;
+        height: 20%;
+    }
+
+    .sheets {
+        display: none;
     }
 }
 

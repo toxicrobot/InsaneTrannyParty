@@ -2,6 +2,11 @@
 const menu = document.querySelector("#image-menu");
 const body = document.querySelector(".body");
 var selectedButtons = {}
+const previewState = {
+    sheets: [],
+    currentIndex: 0,
+};
+
 async function getButtonPaths()  {
     const apiUrl =
     "https://api.github.com/repos/videomp4/v-s_vector_graphics/contents";
@@ -18,6 +23,11 @@ init();
 async function init() {
     const buttons = await getButtonPaths();
     fillSelector(buttons);
+    const prevButton = document.querySelector("#preview-prev");
+    const nextButton = document.querySelector("#preview-next");
+
+    prevButton.addEventListener("click", () => movePreview(-1));
+    nextButton.addEventListener("click", () => movePreview(1));
 }
 
 function fillSelector(buttons) {
@@ -49,30 +59,72 @@ function fillSelector(buttons) {
 }
 
 function fillSheet(pins) {
-        const sheets = document.querySelector(".sheets");
-        const newSheets = document.createDocumentFragment();
-        const sheetAmount = Math.max(Math.ceil(pins.length / 15),1);
-        console.log(sheetAmount);
-        var pindex = 0;
-        for (let i = 0; i < sheetAmount; i++) {
-            const sheet = document.createElement("div");
-            sheet.className = "sheet"
-            for (let i = 0; i < 15; i++) {
-                const item = document.createElement("div");
-                item.className = "pin";
-                item.innerHTML = `
-                    <img class="template" src="buttons/0_single_template-44mm.svg" alt="">
-                    <img class="button" src="${pins[pindex] || 'buttons/0_single_template-44mm.svg'}" alt="">
-                `;
-                sheet.appendChild(item);
-                pindex++;
-            }
-            newSheets.appendChild(sheet);
+    const sheets = document.querySelector(".sheets");
+    const sheetAmount = Math.max(Math.ceil(pins.length / 15), 1);
+    const allSheets = [];
+    let pindex = 0;
+
+    for (let i = 0; i < sheetAmount; i++) {
+        const sheet = document.createElement("div");
+        sheet.className = "sheet";
+        for (let j = 0; j < 15; j++) {
+            const item = document.createElement("div");
+            item.className = "pin";
+            item.innerHTML = `
+                <img class="template" src="buttons/0_single_template-44mm.svg" alt="">
+                <img class="button" src="${pins[pindex] || 'buttons/0_single_template-44mm.svg'}" alt="">
+            `;
+            sheet.appendChild(item);
+            pindex++;
         }
-        
-        sheets.replaceChildren(newSheets);
+        allSheets.push(sheet);
+    }
 
+    previewState.sheets = allSheets;
+    previewState.currentIndex = 0;
+    sheets.replaceChildren(...allSheets);
+    updatePreview();
+}
 
+function updatePreview() {
+    const previewSheet = document.querySelector(".preview-sheet");
+    const indexLabel = document.querySelector("#preview-index");
+    const prevButton = document.querySelector("#preview-prev");
+    const nextButton = document.querySelector("#preview-next");
+
+    if (!previewSheet) return;
+
+    if (!previewState.sheets.length) {
+        previewSheet.replaceChildren();
+        if (indexLabel) indexLabel.textContent = "Sheet 0 / 0";
+        if (prevButton) prevButton.disabled = true;
+        if (nextButton) nextButton.disabled = true;
+        return;
+    }
+
+    previewState.currentIndex = Math.min(
+        Math.max(previewState.currentIndex, 0),
+        previewState.sheets.length - 1
+    );
+
+    const previewClone = previewState.sheets[previewState.currentIndex].cloneNode(true);
+    previewSheet.replaceChildren(previewClone);
+
+    if (indexLabel) {
+        indexLabel.textContent = `Sheet ${previewState.currentIndex + 1} / ${previewState.sheets.length}`;
+    }
+
+    if (prevButton) prevButton.disabled = previewState.currentIndex === 0;
+    if (nextButton) nextButton.disabled = previewState.currentIndex === previewState.sheets.length - 1;
+}
+
+function movePreview(direction) {
+    if (!previewState.sheets.length) return;
+    previewState.currentIndex = Math.min(
+        Math.max(previewState.currentIndex + direction, 0),
+        previewState.sheets.length - 1
+    );
+    updatePreview();
 }
 
 function buttonListOutOfSelectedButtons(selectedButtons) {
