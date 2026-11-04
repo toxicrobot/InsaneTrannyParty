@@ -17,6 +17,8 @@
                 <span id="preview-index">Sheet 1 / 1</span>
                 <button id="preview-next" type="button" label="Next sheet">→</button>
                 <button onclick="window.print();">Print</button>
+                <input type="checkbox" id="templateToggle" name="templateToggle" value="0">
+                <label for="templateToggle"> Show template</label><br>
             </div>
             <div class="preview-sheet" >
                 <div class="sheet"></div>
@@ -29,28 +31,15 @@
 
         </div>
     </div>
-
-
-    <script>
-        const sheet = document.querySelector(".sheet");
-        for (let i = 0; i < 15; i++) {
-            const item = document.createElement("div");
-            item.className = "pin";
-            item.innerHTML = `
-                <img class="template" src="buttons/0_single_template-44mm.svg" alt="">
-                <img class="button" src="buttons/0_single_template-44mm.svg" alt="">
-            `;
-            sheet.appendChild(item);
-        }
-    </script>
-   
-
 </body>
 </html>
 
 
 
 <style>
+:root {
+    --button-preview-size: 40mm;
+}
 @page {
     size: A4;
     margin: 0;
@@ -72,6 +61,16 @@ body {
   .sheets {
         display: block;
     }
+
+    .button {
+        width: 54mm;
+        height: 54mm;
+    }
+    .template {
+        display: none !important;
+        width: 54mm;
+        height: 54mm;
+    }
 }
 
 @media screen {
@@ -79,19 +78,7 @@ body {
         display: flex;
         align-items: flex-start;
         padding: 1rem;
-    }
-
-    #image-menu {
-        flex: 1 1 120px;
-        min-width: 220px;
-    }
-
-    .preview-panel {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        flex: 0 0 auto;
-        align-items: center;
+        gap: 5rem;
     }
 
     .preview-controls {
@@ -102,34 +89,27 @@ body {
     }
 
     .preview-sheet {
-        width: min(40vw);
+        width: min(30vw);
         background: white;
         border: 1px solid #ddd;
         box-sizing: border-box;
     }
 
-    .preview-sheet .sheet {
-        width: 100%;
+    .sheet {
         height: auto;
         aspect-ratio: 210 / 297;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-    }
-
-    .preview-sheet .pin {
-        width: 100%;
-        height: 100%;
-    }
-
-    .preview-sheet .button,
-    .preview-sheet .template {
-        width: 20%;
-        height: 20%;
     }
 
     .sheets {
         display: none;
+    }
+    .button {
+        width: var(--button-preview-size);
+        height:var(--button-preview-size);
+    }
+    .template {
+        width: var(--button-preview-size);
+        height:var(--button-preview-size);
     }
 }
 
@@ -141,11 +121,16 @@ body {
 
 
 .button{
-    width: 54mm;
-    height: 54mm;
     position: absolute;
     clip-path: circle();
 }
+.template {
+    display: none;
+    position: absolute;
+    clip-path: circle();
+    z-index: 5;
+}
+
 .sheet {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -153,12 +138,7 @@ body {
 }
 
 
-.template {
-    display: none;
-    width: 54mm;
-    height: 54mm;
-    z-index: 5;
-}
+
 .pin {
     display: flex;
     align-items: center;
@@ -166,6 +146,61 @@ body {
     width: 100%;
     height: 100%;
 }
+
+#image-menu {
+    --button-preview-size: 40mm;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--button-preview-size) + 1.8rem )), 1fr));
+    align-content: start;
+    gap: 0.65rem;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    background-color: #fff3f0;
+    border: 1px solid #f0cbc3;
+    border-radius: 8px;
+    flex: 1 1 120px;
+    min-width: 220px;
+}
+
+
+.preview-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+    align-items: center;
+}
+
+.buttonSelector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    box-sizing: border-box;
+    min-width: 0;
+    padding: 0.65rem 0.45rem;
+    background: #fff;
+    border: 1px solid #f2d9d3;
+    border-radius: 6px;
+}
+
+.previewImage {
+    width: min(var(--button-preview-size), 100%);
+    height: auto;
+    aspect-ratio: 1;
+    clip-path: circle();
+    object-fit: contain;
+}
+
+.buttonSelector input {
+    width: 3.5rem;
+    box-sizing: border-box;
+    text-align: center;
+
+}
+
+
+
 
 </style>
 

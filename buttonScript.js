@@ -25,19 +25,39 @@ async function init() {
     fillSelector(buttons);
     const prevButton = document.querySelector("#preview-prev");
     const nextButton = document.querySelector("#preview-next");
+    const templateCheckbox = document.querySelector("#templateToggle");
 
     prevButton.addEventListener("click", () => movePreview(-1));
     nextButton.addEventListener("click", () => movePreview(1));
+   
+    fillSheet([]);
+    templateCheckbox.addEventListener("change", function() {
+        document.querySelectorAll(".template").forEach((templateImage) => {
+            templateImage.style.display = this.checked ? "block" : "none";
+        });
+    });
+
 }
 
 function fillSelector(buttons) {
-        // Create a number input for every image (fuck ugly, you can deal with making it pretty yourself xoxo )
     for (const path of buttons) {
         // We can instead get the filenames
         const filename = path.split("/").pop();
 
         const label = document.createElement("label");
-        label.textContent = filename + " ";
+        label.className = "buttonSelector";
+
+        const image = document.createElement("img");
+        image.className = "previewImage";
+        image.src = path;
+        label.appendChild(image);
+
+        /**
+        const name = document.createElement("div");
+        name.className = "buttonName";
+        name.textContent = filename;
+        label.appendChild(name);
+        */
 
         const input = document.createElement("input");
         input.type = "number";
@@ -54,7 +74,6 @@ function fillSelector(buttons) {
             fillSheet(buttonList);
         });
         menu.appendChild(label);
-        menu.appendChild(document.createElement("br"));
     }
 }
 
