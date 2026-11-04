@@ -13,7 +13,7 @@ async function getButtonPaths()  {
     const response = await fetch(apiUrl);
     const files = await response.json();
     const buttons = files
-        .filter(file => file.type === "file" && file.name.endsWith(".svg"))
+        .filter(file => file.type === "file" && file.name.endsWith(".svg") && !file.name.includes("template"))
         .map(file => file.download_url);
         return buttons;
 }
