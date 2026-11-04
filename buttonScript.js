@@ -79,6 +79,7 @@ function fillSelector(buttons) {
 
 function fillSheet(pins) {
     const sheets = document.querySelector(".sheets");
+    const showTemplate = document.querySelector("#templateToggle").checked;
     const sheetAmount = Math.max(Math.ceil(pins.length / 15), 1);
     const allSheets = [];
     let pindex = 0;
@@ -90,9 +91,10 @@ function fillSheet(pins) {
             const item = document.createElement("div");
             item.className = "pin";
             item.innerHTML = `
-                <img class="template" src="buttons/0_single_template-44mm.svg" alt="">
                 <img class="button" src="${pins[pindex] || 'buttons/0_single_template-44mm.svg'}" alt="">
+                <img class="template" src="buttons/0_single_template-44mm.svg" alt="">
             `;
+            item.querySelector(".template").style.display = showTemplate ? "block" : "none";
             sheet.appendChild(item);
             pindex++;
         }
