@@ -10,7 +10,10 @@
 
     
     <div class="noPrint">
-        <div id="image-menu"></div>
+        <div id="image-menu">
+            <label class="uploadButton" for="image-upload">Upload images</label>
+            <input id="image-upload" type="file" accept="image/*" multiple>
+        </div>
         <div class="preview-panel">
             <div class="preview-controls">
                 <button id="preview-prev" type="button" label="Previous sheet">←</button>
@@ -199,8 +202,23 @@ body {
 
 }
 
+#image-upload {
+    display: none;
+}
 
-
+.uploadButton {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding: 0.6rem;
+    border: 1px dashed #b86f5c;
+    border-radius: 6px;
+    color: #713e32;
+    cursor: pointer;
+}
 
 </style>
 

@@ -2,6 +2,7 @@
 const menu = document.querySelector("#image-menu");
 const body = document.querySelector(".body");
 var selectedButtons = {}
+const temporaryImageUrls = [];
 const previewState = {
     sheets: [],
     currentIndex: 0,
@@ -26,9 +27,17 @@ async function init() {
     const prevButton = document.querySelector("#preview-prev");
     const nextButton = document.querySelector("#preview-next");
     const templateCheckbox = document.querySelector("#templateToggle");
+    const imageUpload = document.querySelector("#image-upload");
 
     prevButton.addEventListener("click", () => movePreview(-1));
     nextButton.addEventListener("click", () => movePreview(1));
+    imageUpload.addEventListener("change", (event) => {
+        addImage(event);
+    });
+
+    window.addEventListener("beforeunload", () => {
+        temporaryImageUrls.forEach((imageUrl) => URL.revokeObjectURL(imageUrl));
+    });
    
     fillSheet([]);
     templateCheckbox.addEventListener("change", function() {
@@ -37,6 +46,20 @@ async function init() {
         });
     });
 
+}
+
+function addImage(event) {
+    const files = Array.from(event.target.files).filter((file) => file.type.startsWith("image/"));
+    const imagePaths = files.map((file) => {
+        const imageUrl = URL.createObjectURL(file);
+        temporaryImageUrls.push(imageUrl);
+        return imageUrl;
+    });
+
+    if (imagePaths.length) {
+        fillSelector(imagePaths);
+    }
+    event.target.value = "";
 }
 
 function fillSelector(buttons) {
